@@ -1,18 +1,12 @@
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('scroll', () => {
     const video = document.getElementById('background-video');
+    const scrollPosition = window.scrollY; // 縦スクロール位置
+    const scrollHeight = document.documentElement.scrollHeight - window.innerHeight; // 全体のスクロール可能な高さ
+    const scrollFraction = scrollPosition / scrollHeight; // スクロール位置を割合で計算
 
-    // 動画が完全にロードされた後に実行
-    video.addEventListener('loadedmetadata', () => {
-        const videoDuration = video.duration; // 動画の長さを取得
+    // 動画の長さ（秒）に応じたフレーム計算
+    const videoDuration = video.duration; // 動画の全体時間（秒）
+    const videoCurrentTime = scrollFraction * videoDuration;
 
-        document.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY; // 現在のスクロール位置
-            const scrollHeight = document.documentElement.scrollHeight - window.innerHeight; // スクロール可能な全体の高さ
-            const scrollFraction = scrollPosition / scrollHeight; // スクロール量を割合で計算
-
-            // 動画の現在時間を更新
-            const videoCurrentTime = scrollFraction * videoDuration;
-            video.currentTime = videoCurrentTime;
-        });
-    });
+    video.currentTime = videoCurrentTime; // 動画の再生位置を更新
 });
