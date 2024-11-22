@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let scrollPosition = 0;
     let ticking = false;
+    videoElement.pause();
 
     function updateVideoTime() {
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
